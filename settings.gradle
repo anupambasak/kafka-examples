@@ -1,0 +1,10 @@
+pluginManagement {
+    repositories {
+        maven { url 'https://nexus.apos.in/nexus/repository/maven-public/' }
+    }
+}
+
+rootProject.name = 'kafka-examples'
+include 'kafkasender'
+include 'kafkastreams'
+

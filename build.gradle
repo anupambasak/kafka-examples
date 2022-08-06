@@ -1,0 +1,19 @@
+buildscript {
+    repositories {
+        maven { url 'https://nexus.apos.in/nexus/repository/maven-public/' }
+    }
+}
+
+plugins {
+    id 'idea'
+    id 'org.springframework.boot' version '2.7.2'
+}
+
+allprojects{
+    repositories {
+        maven { url 'https://nexus.apos.in/nexus/repository/maven-public/' }
+    }
+}
+
+group 'cris.apos'
+version '1.0-SNAPSHOT'
