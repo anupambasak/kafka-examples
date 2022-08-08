@@ -1,0 +1,18 @@
+spring:
+  kafka:
+    listener:
+      concurrency: 1
+    bootstrap-servers: kafka-${SPRING_APPLICATION_ENV:dev}.apos.io:9092
+#    consumer:
+#      bootstrap-servers: kafka-dev.apos.io:9092
+#      group-id: trainsync-${SPRING_APPLICATION_ENV:dev}-group
+#      auto-offset-reset: earliest
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      properties:
+#        spring.json.value.default.type: io.minio.notification.NotificationInfo
+    producer:
+      bootstrap-servers: kafka-${SPRING_APPLICATION_ENV:dev}.apos.io:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
