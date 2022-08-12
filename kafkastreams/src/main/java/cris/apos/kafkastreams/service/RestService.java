@@ -51,6 +51,6 @@ public class RestService {
         // close the iterator to release resources
         range.close();
 
-        return "OK";
+        return "OK1";
     }
 }

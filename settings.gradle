@@ -2,6 +2,10 @@ pluginManagement {
     repositories {
         maven { url 'https://nexus.apos.in/nexus/repository/maven-public/' }
     }
+
+    plugins {
+        id 'com.google.cloud.tools.jib' version '3.2.1'
+    }
 }
 
 rootProject.name = 'kafka-examples'

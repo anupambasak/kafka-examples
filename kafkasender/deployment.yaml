@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafkasender
+  labels:
+    app: kafkasender
+spec:
+  type: ClusterIP
+  selector:
+    app: kafkasender
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafkasender
+  labels:
+    app: kafkasender
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafkasender
+  template:
+    metadata:
+      labels:
+        app: kafkasender
+    spec:
+      containers:
+      - name: kafkasender
+        image: registry.apos.in/anupam/kafka-examples/kafkasender
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP

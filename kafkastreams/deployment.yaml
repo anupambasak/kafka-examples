@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafkastreams
+  labels:
+    app: kafkastreams
+spec:
+  type: ClusterIP
+  selector:
+    app: kafkastreams
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafkastreams
+  labels:
+    app: kafkastreams
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kafkastreams
+  template:
+    metadata:
+      labels:
+        app: kafkastreams
+    spec:
+      containers:
+      - name: kafkastreams
+        image: registry.apos.in/anupam/kafka-examples/kafkastreams
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
