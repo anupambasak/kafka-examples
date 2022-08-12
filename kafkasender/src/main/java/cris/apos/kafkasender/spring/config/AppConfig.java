@@ -24,7 +24,7 @@ public class AppConfig {
     @Bean
     public NewTopic topic1() {
         return TopicBuilder.name(sendTopic)
-                .partitions(1)
+                .partitions(10)
                 .replicas(1)
                 .build();
     }

@@ -33,6 +33,11 @@ spec:
       containers:
       - name: kafkastreams
         image: registry.apos.in/anupam/kafka-examples/kafkastreams
+        env:
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
         ports:
         - containerPort: 8080
           name: http
