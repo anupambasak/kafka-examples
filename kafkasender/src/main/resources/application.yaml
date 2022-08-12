@@ -1,4 +1,9 @@
+server:
+  port: ${SERVER_PORT:8080}
+
 spring:
+  application:
+    name: kafkasender
   kafka:
     listener:
       concurrency: 1

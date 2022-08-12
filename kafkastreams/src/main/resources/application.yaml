@@ -1,9 +1,12 @@
+server:
+  port: ${SERVER_PORT:8081}
+
 spring:
   application:
     name: kafkastreams
   kafka:
-    listener:
-      concurrency: 1
+#    listener:
+#      concurrency: 1
     bootstrap-servers: kafka-${SPRING_APPLICATION_ENV:dev}.apos.io:9092
 #    consumer:
 #      bootstrap-servers: kafka-dev.apos.io:9092
@@ -13,8 +16,8 @@ spring:
 #      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
 #      properties:
 #        spring.json.value.default.type: io.minio.notification.NotificationInfo
-    producer:
-      bootstrap-servers: kafka-${SPRING_APPLICATION_ENV:dev}.apos.io:9092
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    producer:
+#      bootstrap-servers: kafka-${SPRING_APPLICATION_ENV:dev}.apos.io:9092
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 #      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
