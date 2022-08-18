@@ -11,4 +11,5 @@ pluginManagement {
 rootProject.name = 'kafka-examples'
 include 'kafkasender'
 include 'kafkastreams'
+include 'kafka-streams-statestore'
 

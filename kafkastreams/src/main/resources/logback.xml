@@ -2,7 +2,7 @@
 <configuration>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>[%d{dd/MM/yyyy HH:mm:ss.SSS z}] %-5level [%t] [%X{trainNumber}] [%logger{0}:%L] - %msg%n%rEx</pattern>
+            <pattern>[%d{dd/MM/yyyy HH:mm:ss.SSS z}] %-5level [%t] [%logger{0}:%L] - %msg%n%rEx</pattern>
         </encoder>
     </appender>
 
@@ -22,7 +22,7 @@
     <logger name="org.apache.kafka" level="info"></logger>
     <logger name="org.postgresql" level="info"></logger>
     <logger name="com.zaxxer.hikari.pool" level="info"></logger>
-    <!--    <logger name="org.hibernate.SQL" level="debug"></logger>-->
+    <logger name="io.rsocket.FrameLogger" level="info"></logger>
     <!--    <logger name="org.hibernate.type" level="trace"></logger>-->
 
     <root level="debug">

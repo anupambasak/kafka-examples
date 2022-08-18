@@ -1,8 +1,7 @@
 package cris.apos.kafkastreams.spring.config;
 
+import cris.apos.kafkastreams.statestore.spring.config.MetadataStoreAppConfig;
 import lombok.Getter;
-import static org.apache.kafka.streams.StreamsConfig.*;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.common.serialization.Serdes;
@@ -10,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.EnableKafkaStreams;
 import org.springframework.kafka.annotation.KafkaStreamsDefaultConfiguration;
@@ -18,15 +18,17 @@ import org.springframework.kafka.config.StreamsBuilderFactoryBeanConfigurer;
 import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.web.reactive.config.EnableWebFlux;
 
-
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.apache.kafka.streams.StreamsConfig.*;
 
 @Configuration
 @EnableKafka
 @EnableKafkaStreams
 @EnableWebFlux
 @ComponentScan(basePackages =  "cris.apos.kafkastreams")
+@Import(value = {MetadataStoreAppConfig.class})
 @Getter
 @Slf4j
 public class AppConfig {
@@ -45,7 +47,7 @@ public class AppConfig {
     KafkaStreamsConfiguration kStreamsConfig() {
         Map<String, Object> props = new HashMap<>();
         props.put(APPLICATION_ID_CONFIG, "kafkastreams");
-        props.put(APPLICATION_SERVER_CONFIG, applicationIp+":8080");
+        props.put(APPLICATION_SERVER_CONFIG, applicationIp+":9878");
         props.put(BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         props.put(DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
         props.put(DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
@@ -66,6 +68,5 @@ public class AppConfig {
                 .replicas(1)
                 .build();
     }
-
 
 }

@@ -1,11 +1,9 @@
 package cris.apos.kafkastreams.service;
 
 import cris.apos.kafkastreams.spring.config.AppConfig;
+import cris.apos.kafkastreams.statestore.service.MetadataService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.streams.KafkaStreams;
-import org.apache.kafka.streams.KeyValue;
-import org.apache.kafka.streams.StoreQueryParameters;
-import org.apache.kafka.streams.StreamsMetadata;
+import org.apache.kafka.streams.*;
 import org.apache.kafka.streams.state.KeyValueIterator;
 import org.apache.kafka.streams.state.QueryableStoreTypes;
 import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
@@ -15,8 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Collection;
 
 @Slf4j
 @RestController
@@ -28,6 +24,9 @@ public class RestService {
 
     @Autowired
     private StreamsBuilderFactoryBean factoryBean;
+
+    @Autowired
+    private MetadataService metadataService;
 
     @GetMapping("/count/{word}")
     public String get(@PathVariable String word){
@@ -59,13 +58,19 @@ public class RestService {
 
     @GetMapping("/metadata")
     public String getMetadata(){
-        KafkaStreams kafkaStreams = factoryBean.getKafkaStreams();
+//        KafkaStreams kafkaStreams = factoryBean.getKafkaStreams();
+//
+//        Collection<StreamsMetadata> collection = kafkaStreams.streamsMetadataForStore("count");
+//        log.info("collection:::{}",collection);
+//        for(StreamsMetadata sm: collection) {
+//            log.info("Metadata::::{}",sm);
+//        }
+//
+//        KeyQueryMetadata kqm = kafkaStreams.queryMetadataForKey("count","fox", new StringSerializer());
+//
+//        log.info("{}",kqm);
 
-        Collection<StreamsMetadata> collection = kafkaStreams.streamsMetadataForStore("count");
-        log.info("collection:::{}",collection);
-        for(StreamsMetadata sm: collection) {
-            log.info("Metadata::::{}",sm);
-        }
+        log.info("{}",metadataService.metadataForAllStreamsClients());
 
         return "OK";
     }
