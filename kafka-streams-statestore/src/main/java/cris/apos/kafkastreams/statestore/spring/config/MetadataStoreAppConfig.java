@@ -15,19 +15,18 @@ import reactor.util.retry.Retry;
 import java.time.Duration;
 
 @Configuration
-//@ComponentScan(basePackages =  "cris.apos.kafkastreams.statestore")
+@ComponentScan(basePackages =  "cris.apos.kafkastreams.statestore")
 public class MetadataStoreAppConfig {
 
     @Bean
-    public RSocketRequester getRSocketRequester(@Autowired RSocketStrategies rSocketStrategies){
+    public RSocketRequester.Builder getRSocketRequesterBuilder(@Autowired RSocketStrategies rSocketStrategies){
         RSocketRequester.Builder builder = RSocketRequester.builder();
         return builder
                 .rsocketStrategies(rSocketStrategies)
                 .rsocketConnector(
                         rSocketConnector ->
                                 rSocketConnector.reconnect(Retry.fixedDelay(2, Duration.ofSeconds(2)))
-                )
-                .tcp("localhost", 9898);
+                );
     }
 
     @Bean

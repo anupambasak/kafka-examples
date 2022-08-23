@@ -18,3 +18,14 @@ message WordCountStateRes {
     string key = 1;
     int64 count = 2;
 }
+
+message WordCountStateMetadataReq {
+    string store = 1;
+    string keyRange = 2;
+}
+
+message WordCountStateMetadataRes {
+    string host = 1;
+    int32 port = 2;
+    string key = 3;
+}

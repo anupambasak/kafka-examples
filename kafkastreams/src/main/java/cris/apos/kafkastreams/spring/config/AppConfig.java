@@ -1,5 +1,6 @@
 package cris.apos.kafkastreams.spring.config;
 
+import cris.apos.kafkastreams.statestore.dto.CurrentHostInfo;
 import cris.apos.kafkastreams.statestore.spring.config.MetadataStoreAppConfig;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -42,16 +43,27 @@ public class AppConfig {
     @Value("${MY_POD_IP:localhost}")
     private String applicationIp;
 
+    @Value("${INTERACTIVE_QUERY_PORT:9898}")
+    private int port;
+
 
     @Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)
-    KafkaStreamsConfiguration kStreamsConfig() {
+    public KafkaStreamsConfiguration kStreamsConfig() {
         Map<String, Object> props = new HashMap<>();
         props.put(APPLICATION_ID_CONFIG, "kafkastreams");
-        props.put(APPLICATION_SERVER_CONFIG, applicationIp+":9878");
+        props.put(APPLICATION_SERVER_CONFIG, applicationIp + ":" + port);
         props.put(BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         props.put(DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
         props.put(DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
         return new KafkaStreamsConfiguration(props);
+    }
+
+    @Bean
+    public CurrentHostInfo currentHostInfo(){
+        CurrentHostInfo chi = new CurrentHostInfo();
+        chi.setHost(applicationIp);
+        chi.setPort(port);
+        return chi;
     }
 
     @Bean

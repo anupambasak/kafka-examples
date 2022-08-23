@@ -13,6 +13,10 @@ spec:
     targetPort: 8080
     protocol: TCP
     name: http
+  - port: 9898
+    targetPort: 9898
+    protocol: TCP
+    name: rsock
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -38,7 +42,12 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
+        - name: INTERACTIVE_QUERY_HOST
+          value: kafkastreams
         ports:
         - containerPort: 8080
           name: http
+          protocol: TCP
+        - containerPort: 9898
+          name: rsock
           protocol: TCP

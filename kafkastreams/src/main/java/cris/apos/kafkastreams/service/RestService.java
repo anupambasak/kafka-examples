@@ -70,7 +70,7 @@ public class RestService {
 //
 //        log.info("{}",kqm);
 
-        log.info("{}",metadataService.metadataForAllStreamsClients());
+//        log.info("{}",metadataService.metadataForAllStreamsClients());
 
         return "OK";
     }
